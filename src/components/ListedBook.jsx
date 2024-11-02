@@ -1,8 +1,10 @@
 import { IoLocationOutline } from "react-icons/io5";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { RiPagesLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const ListedBook = ({ book }) => {
+
     const { image, bookName, author, tags, yearOfPublishing, publisher, totalPages, category, rating } = book;
     return (
         <div className="md:flex items-center border p-4 mb-3 rounded-xl">
