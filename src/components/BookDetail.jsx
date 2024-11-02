@@ -1,4 +1,5 @@
 import { NavLink, useLoaderData, useParams } from "react-router-dom";
+import { addToStoredReadList, addToStoredWishlist } from "../utilities/addToDb";
 
 const BookDetail = () => {
 
@@ -8,16 +9,24 @@ const BookDetail = () => {
 
     const id = parseInt(bookId);
 
-    const book = data.find(book => book.bookId === id);
+    const book = data.find(book => book.bookId ===   id);
     console.log(book);
     const { image, bookName, author, category, review, tags, totalPages, publisher, yearOfPublishing, rating } = book;
+
+    const handleMarkAsRead = (id) => {
+        addToStoredReadList(id);
+    }
+
+    const handleWishlist = (id) => {
+        addToStoredWishlist(id);
+    }
     return (
         <div className="md:mx-auto md:container">
             <div className="md:flex items-center justify-between gap-4 p-4 ">
-                <div className="border p-6 bg-base-200 rounded-xl">
+                <div className="border p-6 bg-base-200 rounded-xl basis-[30%]">
                     <img src={image} alt="" />
                 </div>
-                <div className="w-[100%] space-y-3">
+                <div className="w-[100%] space-y-3 basis-[70%]">
                     <h2 className="text-[#131313] text-4xl font-bold">{bookName}</h2>
                     <p className="text-slate-600 text-xl font-medium">{author}</p>
                     <hr />
@@ -38,8 +47,8 @@ const BookDetail = () => {
                     <p className="text-[#131313] text-base font-semibold"><span className="text-slate-500 text-base font-normal">Year of Publishing:</span> {yearOfPublishing}</p>
                     <p className="text-[#131313] text-base font-semibold"><span className="text-slate-500 text-base font-normal">Rating:</span> {rating}</p>
                     <div className="flex items-center gap-4">
-                        <NavLink><button className="btn bg-white text-[#131313] text-lg font-semibold border-black/30">Read</button></NavLink>
-                        <NavLink><button className="btn bg-[#50B1C9] text-[#FFF] text-lg font-semibold">Wishlist</button></NavLink>
+                        <NavLink><button onClick={() => handleMarkAsRead(bookId)} className="btn bg-white text-[#131313] text-lg font-semibold border-black/30">Read</button></NavLink>
+                        <NavLink><button onClick={()=>  handleWishlist(bookId)} className="btn bg-[#50B1C9] text-[#FFF] text-lg font-semibold">Wishlist</button></NavLink>
                     </div>
                 </div>
             </div>
